@@ -92,6 +92,16 @@ public class History {
         this.username = username;
     }
 
+    // Method to get added stocks (used in HistoryView)
+    public int getAddedStocks() {
+        return quantityChange;
+    }
+
+    // Method to get date (used in HistoryView)
+    public Date getDate() {
+        return changeDate;
+    }
+
     @Override
     public String toString() {
         return "History #" + id + ": " + action + " " + productName + " by " + (quantityChange >= 0 ? "+" : "")

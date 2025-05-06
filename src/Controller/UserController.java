@@ -39,6 +39,9 @@ public class UserController {
         // Tạo bảng Account nếu chưa tồn tại
         Account.createTableIfNotExists();
 
+        // Set back button listener
+        this.userDetails.setBackButtonListener(e -> fireBackEvent());
+
         // submit user
         this.form.submitUsers(e -> {
             String username = this.form.getUsername().trim();

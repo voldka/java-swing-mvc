@@ -28,7 +28,7 @@ public class HistoryController {
 
     /**
      * Method called from MainFrame to load history data
-     * This delegates to loadAllHistory for consistent behavior
+     * Add debug output to verify this is being called
      */
     public void loadHistory() {
         loadAllHistory();
@@ -41,7 +41,7 @@ public class HistoryController {
             loadAllHistory(); // Nếu từ khóa trống, tải lại toàn bộ lịch sử
         } else {
             List<History> historyList = historyDAO.searchHistoryByProductName(keyword);
-            historyView.loadHistory(historyList);
+            loadAllHistory();
         }
     }
 
