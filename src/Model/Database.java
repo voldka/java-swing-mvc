@@ -1,58 +1,57 @@
 package Model;
 
+import DAO.UserDAO;
 import java.io.*;
 import java.util.ArrayList;
 
 public class Database {
 
-    private ArrayList<User> userArrayList;
+    private ArrayList<Account> accountArrayList;
+    private UserDAO userDAO;
 
     public Database() {
-        userArrayList = new ArrayList<>();
+        accountArrayList = new ArrayList<>();
+        userDAO = new UserDAO();
+        // Create the Account table if it doesn't exist
+        userDAO.createTableIfNotExists();
     }
 
-    // adds user to our collection
-    public void addUser(User user) {
-        userArrayList.add(user);
+    // adds account to our collection
+    public void addAccount(Account account) {
+        accountArrayList.add(account);
     }
 
-    // saves user to database file
-    public void saveUser(File file) {
+    // saves account to database
+    public void saveAccount(File file) {
         try {
-            // user model
-            User user;
-            String save_data = "";
+            // Using SQL Server now, but still maintaining File parameter for compatibility
+            Account account;
 
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
             int i = 0;
-            while( i < userArrayList.size()) {
-                user = userArrayList.get(i);
-                save_data = user.getFirstname() + ", " + user.getLastname();
+            while (i < accountArrayList.size()) {
+                account = accountArrayList.get(i);
+                // Add account to SQL Server database
+                userDAO.addAccount(account);
                 i++;
             }
-            bufferedWriter.write(save_data);
-            bufferedWriter.newLine();
-            // prevents memory leak
-            bufferedWriter.close();
-        } catch (IOException e) {
+
+            // Clear the array list after saving to avoid duplicates on next save
+            accountArrayList.clear();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    // reads user from database file
-    public Object[] loadUsers(File file) {
-        Object[] objects;
+    // reads accounts from database
+    public Object[] loadAccounts(File file) {
+        // Using SQL Server now, but still maintaining File parameter for compatibility
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            // each lines to array
-            objects = bufferedReader.lines().toArray();
-            bufferedReader.close();
-            return objects;
-        } catch (IOException e) {
+            // Get accounts from SQL Server database
+            return userDAO.loadAccounts();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-
-
 }

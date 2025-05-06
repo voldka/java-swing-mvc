@@ -6,19 +6,22 @@ import java.awt.event.ActionListener;
 
 public class Form extends JPanel {
 
-    private JTextField firstnameField;
-    private JTextField lastNameField;
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private JTextField emailField;
 
     private JButton addButton;
     private JButton viewButton;
 
     public Form() {
 
-        JLabel firstnameLabel = new JLabel("First Name: ");
-        JLabel lastnameLabel = new JLabel("Last Name: ");
+        JLabel usernameLabel = new JLabel("Username: ");
+        JLabel passwordLabel = new JLabel("Password: ");
+        JLabel emailLabel = new JLabel("Email: ");
 
-        firstnameField = new JTextField(25);
-        lastNameField = new JTextField(25);
+        usernameField = new JTextField(25);
+        passwordField = new JPasswordField(25);
+        emailField = new JTextField(25);
 
         addButton = new JButton("Add User");
         addButton.setPreferredSize(new Dimension(278, 40));
@@ -28,7 +31,7 @@ public class Form extends JPanel {
         // space between fields
         Insets fieldsInset = new Insets(0, 0, 10, 0);
         // space between buttons
-        Insets buttonInset = new Insets(20,0,0,0);
+        Insets buttonInset = new Insets(20, 0, 0, 0);
 
         // uses Grid Bag Layout
         setLayout(new GridBagLayout());
@@ -40,44 +43,59 @@ public class Form extends JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
 
-        add(firstnameLabel, gridBagConstraints);
+        add(usernameLabel, gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
 
-        add(firstnameField, gridBagConstraints);
+        add(usernameField, gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
 
-        add(lastnameLabel, gridBagConstraints);
+        add(passwordLabel, gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
 
-        add(lastNameField, gridBagConstraints);
+        add(passwordField, gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+
+        add(emailLabel, gridBagConstraints);
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+
+        add(emailField, gridBagConstraints);
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.insets = buttonInset;
 
         add(addButton, gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = buttonInset;
 
         add(viewButton, gridBagConstraints);
     }
 
     // getters
-    public String getFirstname() {
-        return firstnameField.getText();
+    public String getUsername() {
+        return usernameField.getText();
     }
 
-    public String getLastname() {
-        return lastNameField.getText();
+    public String getPassword() {
+        return new String(passwordField.getPassword());
+    }
+
+    public String getEmail() {
+        return emailField.getText();
     }
 
     public void submitUsers(ActionListener actionListener) {
@@ -90,9 +108,10 @@ public class Form extends JPanel {
 
     // reset fields
     public void reset(boolean bln) {
-        if(bln) {
-            firstnameField.setText("");
-            lastNameField.setText("");
+        if (bln) {
+            usernameField.setText("");
+            passwordField.setText("");
+            emailField.setText("");
         }
     }
 }

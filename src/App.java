@@ -4,7 +4,17 @@ import javax.swing.*;
 
 public class App {
     public static void main(String[] args) {
-        // runs in AWT thread
-        SwingUtilities.invokeLater(MainFrame::new);
+        // Set the look and feel to the system look and feel
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Use SwingUtilities.invokeLater to ensure thread safety
+        SwingUtilities.invokeLater(() -> {
+            MainFrame mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
+        });
     }
 }
